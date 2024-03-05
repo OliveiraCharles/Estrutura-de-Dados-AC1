@@ -41,9 +41,9 @@ Neste projeto, criaremos um programa em Python que lê informações pessoais de
 1. Clone o repositório e acesse a pagina do projeto
 
 ```sh
-git clone https://path.to/project/repository.git
+git clone https://github.com/OliveiraCharles/Estrutura-de-Dados-AC1.git
 
-cd path_to/project
+cd Estrutura-de-Dados-AC1
 ```
 
 ## Execução
