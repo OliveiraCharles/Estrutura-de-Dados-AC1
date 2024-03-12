@@ -5,12 +5,12 @@ from config import settings as st
 
 def main(arquivo='./entrada.txt'):
 
-    with open(arquivo, 'r') as f:
+    with open(arquivo, 'r', encoding="utf-8") as f:
         linhas = f.readlines()
         pessoas = []
         for linha in linhas:
             linha = linha.replace("\n", "").strip()
-            print(">>", linha)
+            print("\n>>", linha)
 
             if '=' in linha:
                 comando, atributo = linha.split('=')
@@ -19,19 +19,26 @@ def main(arquivo='./entrada.txt'):
 
                     match comando:
                         case "BUBBLESORT":
-                            rt = fc.bubble_sort(pessoas, atributo)
-                            print(rt)
+                            pessoas = fc.bubble_sort(pessoas, atributo)
+                            print(pessoas[0])
                         case "MERGESORT":
-                            fc.merge_sort(pessoas, atributo)
+                            pessoas = fc.merge_sort(pessoas, atributo)
+                            print(pessoas[0])
 
                         case "BUSCABINARIA":
-                            fc.busca_binária(pessoas, atributo)
+                            rt = fc.busca_binária(pessoas, atributo)
+                            print(rt)
 
                         case "BUSCALINEAR":
-                            fc.busca_linear(pessoas, atributo)
+                            atributo, valor = atributo.split(';')
+                            atributo = atributo.strip()
+                            valor = valor.strip()
+                            rt = fc.busca_linear(pessoas, atributo, valor)
+                            print(rt)
 
                         case "IDX":
-                            fc.idx(pessoas, atributo)
+                            rt = fc.idx(pessoas, atributo)
+                            print(rt)
 
             else:
                 nome, idade, profissão, renda = linha.split(';')
