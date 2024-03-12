@@ -4,65 +4,20 @@ def bubble_sort(lista: list, atributo: str):
     while i > 0:
         flag = False
         for idx in range(len(lista) - 1):
-            # usando getattr para acessar o valor dos atributos dinamicamente
-            if (getattr(lista[idx], atributo.lower())
-                    > getattr(lista[idx + 1], atributo.lower())):
+            val1 = getattr(lista[idx], atributo.lower())
+            val2 = getattr(lista[idx + 1], atributo.lower())
+
+            if val1.isdigit():
+                val1 = int(val1)
+                val2 = int(val2)
+
+            if val1 > val2:
                 flag = True
                 lista[idx], lista[idx + 1] = lista[idx + 1], lista[idx]
         if not flag:
             break
         i -= 1
     return lista
-
-    # match atributo:
-
-    #     case "Nome":
-    #         while i > 0:
-    #             flag = False
-    #             for idx, num in enumerate(lista):
-    #                 if idx+1 < len(lista) and lista[idx].nome > lista[idx+1].nome:
-    #                     flag = True
-    #                     lista[idx], lista[idx+1] = lista[idx+1], lista[idx]
-    #             if not flag:
-    #                 break
-    #             i = i-1
-    #         return lista
-
-    #     case "Idade":
-    #         while i > 0:
-    #             flag = False
-    #             for idx, num in enumerate(lista):
-    #                 if idx+1 < len(lista) and lista[idx].idade > lista[idx+1].idade:
-    #                     flag = True
-    #                     lista[idx], lista[idx+1] = lista[idx+1], lista[idx]
-    #             if not flag:
-    #                 break
-    #             i = i-1
-    #         return lista
-
-    #     case "Profissão":
-    #         while i > 0:
-    #             flag = False
-    #             for idx, num in enumerate(lista):
-    #                 if idx+1 < len(lista) and lista[idx].profissão > lista[idx+1].profissão:
-    #                     flag = True
-    #                     lista[idx], lista[idx+1] = lista[idx+1], lista[idx]
-    #             if not flag:
-    #                 break
-    #             i = i-1
-    #         return lista
-
-    #     case "Renda":
-    #         while i > 0:
-    #             flag = False
-    #             for idx, num in enumerate(lista):
-    #                 if idx+1 < len(lista) and lista[idx].renda > lista[idx+1].renda:
-    #                     flag = True
-    #                     lista[idx], lista[idx+1] = lista[idx+1], lista[idx]
-    #             if not flag:
-    #                 break
-    #             i = i-1
-    #         return lista
 
 
 def merge_sort(lista: list, atributo: str):
@@ -86,57 +41,29 @@ def merge(esq, dir, atributo: str):
         return esq
 
     while i < len(esq) and j < len(dir):
-        if (getattr(esq[i], atributo.lower())
-                < getattr(dir[j], atributo.lower())):
+
+        val1 = getattr(esq[i], atributo.lower())
+        val2 = getattr(dir[j], atributo.lower())
+
+        if val1.isdigit():
+            val1 = int(val1)
+            val2 = int(val2)
+
+        if val1 < val2:
             lista.append(esq[i])
             i += 1
         else:
             lista.append(dir[j])
             j += 1
 
-    # match atributo:
-    #     case "Nome":
-    #         while i < len(esq) and j < len(dir):
-    #             if esq[i].nome < dir[j].nome:
-    #                 lista.append(esq[i])
-    #                 i += 1
-    #             else:
-    #                 lista.append(dir[j])
-    #                 j += 1
-    #     case "Idade":
-    #         while i < len(esq) and j < len(dir):
-    #             if esq[i].idade < dir[j].idade:
-    #                 lista.append(esq[i])
-    #                 i += 1
-    #             else:
-    #                 lista.append(dir[j])
-    #                 j += 1
-    #     case "Profissão":
-    #         while i < len(esq) and j < len(dir):
-    #             if esq[i].profissão < dir[j].profissão:
-    #                 lista.append(esq[i])
-    #                 i += 1
-    #             else:
-    #                 lista.append(dir[j])
-    #                 j += 1
-    #     case "Renda":
-    #         while i < len(esq) and j < len(dir):
-    #             if esq[i].renda < dir[j].renda:
-    #                 lista.append(esq[i])
-    #                 i += 1
-    #             else:
-    #                 lista.append(dir[j])
-    #                 j += 1
-
     if i < len(esq):
         lista += esq[i:]
     if j < len(dir):
         lista += dir[j:]
-
     return lista
 
 
-def busca_binária(lista: list, atributo):
+def busca_binária(lista: list, atributo):  # Add Valor
     """
     Função busca binaria recebe lista e elemento buscado (x)
     e retorna 2 valores: (se encontrou ou não) e índice
@@ -170,36 +97,11 @@ def busca_linear(lista: list, atributo: str, valor):
             return True, i
     return False, -1
 
-    # match atributo:
-    #     case "Nome":
-    #         for i, pessoa in enumerate(lista):
-    #             if valor in pessoa.nome:
-    #                 return True, i
-    #         return False, -1
-
-    #     case "Idade":
-    #         for i, pessoa in enumerate(lista):
-    #             if valor in pessoa.idade:
-    #                 return True, i
-    #         return False, -1
-
-    #     case "Profissão":
-    #         for i, pessoa in enumerate(lista):
-    #             if valor in pessoa.profissão:
-    #                 return True, i
-    #         return False, -1
-
-    #     case "Renda":
-    #         for i, pessoa in enumerate(lista):
-    #             if valor in pessoa.renda:
-    #                 return True, i
-    #         return False, -1
-
 
 def idx(lista: list, atributo: int):
-    idx = int(atributo)
     try:
+        idx = int(atributo)
         ret = lista[idx]
         return ret
     except Exception as e:
-        print("Erro: ", e)
+        print("\nErro: ", e)

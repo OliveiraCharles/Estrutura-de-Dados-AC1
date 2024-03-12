@@ -14,6 +14,8 @@ def main(arquivo='./entrada.txt'):
 
             if '=' in linha:
                 comando, atributo = linha.split('=')
+                comando = comando.strip()
+                atributo = atributo.strip()
 
                 if comando in st.comandos:
 
@@ -21,9 +23,11 @@ def main(arquivo='./entrada.txt'):
                         case "BUBBLESORT":
                             pessoas = fc.bubble_sort(pessoas, atributo)
                             print(pessoas[0])
+                            print(pessoas[-1])
                         case "MERGESORT":
                             pessoas = fc.merge_sort(pessoas, atributo)
                             print(pessoas[0])
+                            print(pessoas[-1])
 
                         case "BUSCABINARIA":
                             rt = fc.busca_binária(pessoas, atributo)
@@ -42,6 +46,11 @@ def main(arquivo='./entrada.txt'):
 
             else:
                 nome, idade, profissão, renda = linha.split(';')
+                nome = nome.strip()
+                idade = idade.strip()
+                profissão = profissão.strip()
+                renda = renda.strip()
+
                 pessoas.append(Pessoa(nome, idade, profissão, renda))
 
 
