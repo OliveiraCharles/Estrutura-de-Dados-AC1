@@ -30,7 +30,10 @@ def main(arquivo='./entrada.txt'):
                             print(pessoas[-1])
 
                         case "BUSCABINARIA":
-                            rt = fc.busca_binária(pessoas, atributo)
+                            atributo, valor = atributo.split(';')
+                            atributo = atributo.strip()
+                            valor = valor.strip()
+                            rt = fc.busca_binária(pessoas, atributo, valor)
                             print(rt)
 
                         case "BUSCALINEAR":

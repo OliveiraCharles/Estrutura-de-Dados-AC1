@@ -63,22 +63,26 @@ def merge(esq, dir, atributo: str):
     return lista
 
 
-def busca_binária(lista: list, atributo):  # Add Valor
+def busca_binária(lista: list, atributo: str, valor):  # Add Valor
     """
     Função busca binaria recebe lista e elemento buscado (x)
     e retorna 2 valores: (se encontrou ou não) e índice
     """
-    x = int(atributo)
+    x = valor
     start = 0
     end = len(lista)
     mid = (end - start) // 2 + start
 
+    val = getattr(lista[mid], atributo.lower())
+    if val.isdigit():
+        val = int(val)
+
     while start != end:
 
-        if lista[mid] == x:
+        if val == x:
             return True, mid
         else:
-            if x > lista[mid]:
+            if x > val:
                 start = mid + 1
             else:
                 end = mid
