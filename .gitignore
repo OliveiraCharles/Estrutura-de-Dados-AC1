@@ -191,3 +191,4 @@ logs/
 .venv/
 scripts/
 tests/
+staff/

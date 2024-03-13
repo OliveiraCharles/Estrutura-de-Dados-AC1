@@ -6,8 +6,9 @@ class Pessoa:
         self.renda = renda
 
     def __str__(self) -> str:
-        return f"""\n{self.nome}:
-        \tIdade: {self.idade}
-        \tProfissão: {self.profissão}
-        \tRenda: {self.renda}
-        """
+        return f"""
+{self.nome}:
+  Idade: {self.idade}
+  Profissão: {self.profissão}
+  Renda: {self.renda}
+"""

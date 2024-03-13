@@ -1,88 +1,89 @@
-def executa(comando, atributo, lista):
-    match comando:
-        case "BUBBLESORT":
-            bubble_sort(lista, atributo)
-
-        case "MERGESORT":
-            merge_sort(lista, atributo)
-
-        case "BUSCABINARIA":
-            busca_binária(lista, atributo)
-
-        case "BUSCALINEAR":
-            busca_linear(lista, atributo)
-
-        case "IDX":
-            idx(lista, atributo)
-
-
-def bubble_sort(lista: list, atributo):
+def bubble_sort(lista: list, atributo: str):
     i = len(lista)
+
     while i > 0:
         flag = False
-        for idx, num in enumerate(lista):
-            if idx+1 < len(lista) and lista[idx].nome > lista[idx+1].nome:
+        for idx in range(len(lista) - 1):
+            val1 = getattr(lista[idx], atributo.lower())
+            val2 = getattr(lista[idx + 1], atributo.lower())
+
+            if val1.isdigit():
+                val1 = int(val1)
+                val2 = int(val2)
+
+            if val1 > val2:
                 flag = True
-                lista[idx], lista[idx+1] = lista[idx+1], lista[idx]
+                lista[idx], lista[idx + 1] = lista[idx + 1], lista[idx]
         if not flag:
             break
-        i = i-1
+        i -= 1
     return lista
 
 
-def merge_sort(lista: list, atributo):
+def merge_sort(lista: list, atributo: str):
     if len(lista) <= 1:
         return lista
 
     start, end = 0, len(lista)
     mid = len(lista) // 2
 
-    esq = merge_sort(lista[start:mid])
-    dir = merge_sort(lista[mid:end])
-    return merge(esq, dir)
+    esq = merge_sort(lista[start:mid], atributo)
+    dir = merge_sort(lista[mid:end], atributo)
+    return merge(esq, dir, atributo)
 
 
-def merge(esq, dir):
+def merge(esq, dir, atributo: str):
     lista = []
     i, j = 0, 0
     if not esq:
         return dir
     if not dir:
         return esq
+
     while i < len(esq) and j < len(dir):
-        if esq[i] < dir[j]:
+
+        val1 = getattr(esq[i], atributo.lower())
+        val2 = getattr(dir[j], atributo.lower())
+
+        if val1.isdigit():
+            val1 = int(val1)
+            val2 = int(val2)
+
+        if val1 < val2:
             lista.append(esq[i])
             i += 1
         else:
             lista.append(dir[j])
             j += 1
+
     if i < len(esq):
         lista += esq[i:]
     if j < len(dir):
         lista += dir[j:]
-
-    for i, pessoa in enumerate(lista):
-        print(pessoa.nome)
-
     return lista
 
 
-def busca_binária(lista: list, atributo):
+def busca_binária(lista: list, atributo: str, valor):  # Add Valor
     """
     Função busca binaria recebe lista e elemento buscado (x)
     e retorna 2 valores: (se encontrou ou não) e índice
     """
-    x = int(atributo)
+    x = valor
     start = 0
     end = len(lista)
     mid = (end - start) // 2 + start
 
     while start != end:
+        val = getattr(lista[mid], atributo.lower())
+        # print(val, start, mid, end)
+        if val.isdigit():
+            val = int(val)
+            x = int(x)
 
-        if lista[mid] == x:
+        if val == x:
             return True, mid
         else:
-            if x > lista[mid]:
+            if x > val:
                 start = mid + 1
             else:
                 end = mid
@@ -91,24 +92,21 @@ def busca_binária(lista: list, atributo):
     return False, -1
 
 
-def busca_linear(lista: list, atributo):
+def busca_linear(lista: list, atributo: str, valor):
     """
     Função busca linear recebe lista e elemento buscado (x)
     e retorna 2 valores: (se encontrou ou não) e índice
     """
-    x = atributo
     for i, pessoa in enumerate(lista):
-        p = [pessoa.nome, pessoa.idade, pessoa.profissão, pessoa.renda]
-        if x in p:
+        if valor in getattr(pessoa, atributo.lower()):
             return True, i
-
     return False, -1
 
 
 def idx(lista: list, atributo: int):
-    idx = int(atributo) - 1
     try:
+        idx = int(atributo)
         ret = lista[idx]
         return ret
     except Exception as e:
-        print("Erro: ", e)
+        print('\nErro: ', e)

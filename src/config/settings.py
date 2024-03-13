@@ -1,2 +1,3 @@
-arquivo = './data/entrada.txt'
-comandos = ["BUBBLESORT", "MERGESORT", "BUSCABINARIA", "BUSCALINEAR", "IDX"]
+# arquivo = './data/entrada.txt'
+arquivo = './data/test.txt'
+comandos = ['BUBBLESORT', 'MERGESORT', 'BUSCABINARIA', 'BUSCALINEAR', 'IDX']
