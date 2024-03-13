@@ -1,16 +1,23 @@
+from config import settings as st
 from prod_lib import functions as fc
 from prod_lib.pessoa import Pessoa
-from config import settings as st
+
+
+def show(pessoas: Pessoa, atributo: str):
+    print('\nidx\t|', atributo)
+    print(20 * '-')
+    for idx, pessoa in enumerate(pessoas):
+        print(idx, '\t|', getattr(pessoa, atributo.lower()))
 
 
 def main(arquivo='./entrada.txt'):
 
-    with open(arquivo, 'r', encoding="utf-8") as f:
+    with open(arquivo, 'r', encoding='utf-8') as f:
         linhas = f.readlines()
         pessoas = []
         for linha in linhas:
-            linha = linha.replace("\n", "").strip()
-            print("\n>>", linha)
+            linha = linha.replace('\n', '').strip()
+            print('\n>>', linha)
 
             if '=' in linha:
                 comando, atributo = linha.split('=')
@@ -20,30 +27,29 @@ def main(arquivo='./entrada.txt'):
                 if comando in st.comandos:
 
                     match comando:
-                        case "BUBBLESORT":
+                        case 'BUBBLESORT':
                             pessoas = fc.bubble_sort(pessoas, atributo)
-                            print(pessoas[0])
-                            print(pessoas[-1])
-                        case "MERGESORT":
-                            pessoas = fc.merge_sort(pessoas, atributo)
-                            print(pessoas[0])
-                            print(pessoas[-1])
+                            show(pessoas, atributo)
 
-                        case "BUSCABINARIA":
+                        case 'MERGESORT':
+                            pessoas = fc.merge_sort(pessoas, atributo)
+                            show(pessoas, atributo)
+
+                        case 'BUSCABINARIA':
                             atributo, valor = atributo.split(';')
                             atributo = atributo.strip()
                             valor = valor.strip()
                             rt = fc.busca_binária(pessoas, atributo, valor)
                             print(rt)
 
-                        case "BUSCALINEAR":
+                        case 'BUSCALINEAR':
                             atributo, valor = atributo.split(';')
                             atributo = atributo.strip()
                             valor = valor.strip()
                             rt = fc.busca_linear(pessoas, atributo, valor)
                             print(rt)
 
-                        case "IDX":
+                        case 'IDX':
                             rt = fc.idx(pessoas, atributo)
                             print(rt)
 

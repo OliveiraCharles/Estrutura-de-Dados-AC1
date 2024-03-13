@@ -73,11 +73,12 @@ def busca_binária(lista: list, atributo: str, valor):  # Add Valor
     end = len(lista)
     mid = (end - start) // 2 + start
 
-    val = getattr(lista[mid], atributo.lower())
-    if val.isdigit():
-        val = int(val)
-
     while start != end:
+        val = getattr(lista[mid], atributo.lower())
+        # print(val, start, mid, end)
+        if val.isdigit():
+            val = int(val)
+            x = int(x)
 
         if val == x:
             return True, mid
@@ -108,4 +109,4 @@ def idx(lista: list, atributo: int):
         ret = lista[idx]
         return ret
     except Exception as e:
-        print("\nErro: ", e)
+        print('\nErro: ', e)

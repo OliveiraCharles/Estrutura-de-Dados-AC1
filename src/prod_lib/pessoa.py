@@ -8,7 +8,7 @@ class Pessoa:
     def __str__(self) -> str:
         return f"""
 {self.nome}:
-Idade: {self.idade}
-Profissão: {self.profissão}
-Renda: {self.renda}
+  Idade: {self.idade}
+  Profissão: {self.profissão}
+  Renda: {self.renda}
 """
